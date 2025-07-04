@@ -248,7 +248,7 @@
 <body>
   <h1>Batman Tag Hunt</h1>
 
-  <button id="modeToggle" aria-label="Toggle Game Mode" hidden>Switch to Riddler Mode</button>
+  <button id="modeToggle" aria-label="Toggle Game Mode">Switch to Riddler Mode</button>
 
   <p id="description">Find all 9 hidden bat-tags to defeat Gotham's villains.</p>
 
@@ -401,7 +401,7 @@
   const prize = document.getElementById("prize");
   const resetBtn = document.getElementById("resetBtn");
   const modeToggle = document.getElementById("modeToggle");
-  modeToggle.style.display = 'none';
+  modeToggle.style.visibility = 'hidden';
   const description = document.getElementById("description");
 
   // Render villains mode tags
