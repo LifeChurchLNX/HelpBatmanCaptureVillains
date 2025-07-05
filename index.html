@@ -139,6 +139,9 @@
     #modeToggle:hover {
       background: #3e5871;
     }
+    modeToggle:{
+      display: none;
+    }
     #scrollIndicator {
       position: fixed;
       bottom: 15px;
@@ -401,7 +404,6 @@
   const prize = document.getElementById("prize");
   const resetBtn = document.getElementById("resetBtn");
   const modeToggle = document.getElementById("modeToggle");
-  modeToggle.style.visibility = 'hidden';
   const description = document.getElementById("description");
 
   // Render villains mode tags
