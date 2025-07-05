@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,7 +140,7 @@
     #modeToggle:hover {
       background: #3e5871;
     }
-    modeToggle:{
+    #modeToggle {
       display: none;
     }
     #scrollIndicator {
@@ -157,11 +158,11 @@
       0%, 100% { box-shadow: 0 0 15px rgba(241, 196, 15, 1); }
       50% { box-shadow: 0 0 25px 10px rgba(241, 196, 15, 0.8); }
     }
-    
+   
     .flash-highlight {
       animation: flash 1s ease-in-out 2;
     }
-    
+   
     @keyframes arrow-bounce {
       0%, 100% {
         transform: translateX(-50%) translateY(0);
@@ -185,7 +186,7 @@
       padding: 6px 10px;      /* added vertical padding */
       overflow: visible;      /* allow glow to show */
     }
-    
+   
     .letter-box {
       flex: 1 1 40px;
       max-width: 12vw;
@@ -199,7 +200,7 @@
       box-sizing: border-box;
       box-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
     }
-    
+   
     .letter-box.found {
       background: #27ae60;
       color: #fff;
@@ -208,7 +209,7 @@
       margin-top: 16px;
       text-align: center;
     }
-    
+   
     #guess-input {
       padding: 8px;
       font-size: 1.2rem;
@@ -219,12 +220,12 @@
       outline: none;
       box-sizing: border-box;
     }
-    
+   
     #guess-input:focus {
       border-color: #f1c40f;
       box-shadow: 0 0 5px #f1c40f;
     }
-    
+   
     #guess-button {
       margin-left: 8px;
       padding: 8px 16px;
@@ -236,11 +237,11 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-    
+   
     #guess-button:hover {
       background-color: #219150;
     }
-    
+   
     #guess-feedback {
       margin-top: 12px;
       font-weight: bold;
@@ -379,13 +380,13 @@
   // Update state with current tag depending on mode
   function updateFound() {
     if (!currentTag) return;
-  
+ 
     // Villain mode: mark villain as found
     if (currentMode === "villains" && VILLAINS[currentTag] && !foundVillains[currentTag]) {
       foundVillains[currentTag] = true;
       localStorage.setItem(STORAGE_VILLAINS, JSON.stringify(foundVillains));
     }
-  
+ 
     // Riddles mode: mark riddle as found
     if (currentMode === "riddles" && RIDDLES[currentTag] && !(currentTag in foundRiddles)) {
       foundRiddles[currentTag] = { solved: false, userAnswer: "" };
@@ -518,49 +519,49 @@
 
   function renderLetters() {
     tagList.innerHTML = "";
-  
+ 
     const board = document.createElement("div");
     board.className = "letter-board";
-  
+ 
     Object.entries(LETTERS).forEach(([tagId, letter]) => {
       const box = document.createElement("div");
       box.className = "letter-box";
       box.id = `tag-${tagId}`;
-  
+ 
       if (foundLetters[tagId]) {
         box.textContent = letter;
         box.classList.add("found");
       } else {
         box.textContent = "_";
       }
-  
+ 
       board.appendChild(box);
     });
-  
+ 
     tagList.appendChild(board);
-  
+ 
     // Check if all 9 tags are found
     const allFound = Object.keys(LETTERS).every(tagId => foundLetters[tagId]);
-  
+ 
     // Create guess input container
     const guessContainer = document.createElement("div");
     guessContainer.className = "letter-guess-container";
-  
+ 
     // Input box
     const input = document.createElement("input");
     input.type = "text";
     input.id = "guess-input";
     input.placeholder = "Type your guess here";
-  
+ 
     // Guess button
     const button = document.createElement("button");
     button.id = "guess-button";
     button.textContent = "Guess";
-  
+ 
     // Feedback paragraph
     const feedback = document.createElement("p");
     feedback.id = "guess-feedback";
-  
+ 
     // Disable input and button if not all letters found
     if (!allFound) {
       input.disabled = true;
@@ -568,27 +569,27 @@
       feedback.textContent = "Find all letters to enter a guess.";
       feedback.style.color = "gray";
     }
-  
+ 
     guessContainer.appendChild(input);
     guessContainer.appendChild(button);
     guessContainer.appendChild(feedback);
-  
+ 
     tagList.appendChild(guessContainer);
-  
+ 
     updateLetterMessage();
-  
+ 
     button.addEventListener("click", () => {
       if (!allFound) return; // Just in case
-  
+ 
       const villainName = "scarecrow"; // Replace with your villain's name or variable
       const userGuess = input.value.trim().toLowerCase();
-  
+ 
       if (!userGuess) {
         feedback.textContent = "Please enter a guess.";
         feedback.style.color = "orange";
         return;
       }
-  
+ 
       if (userGuess === villainName.toLowerCase()) {
         feedback.textContent = "🎉 Correct! You unscrambled the villain!";
         feedback.style.color = "#27ae60";
@@ -605,7 +606,7 @@
   function updateLetterMessage() {
     const total = Object.keys(LETTERS).length;
     const foundCount = Object.keys(foundLetters).length;
-  
+ 
     if (letterGuessSolved) {
       message.textContent = "You've revealed the secret villain!";
       prize.style.display = "block";
@@ -682,14 +683,14 @@
     const scrollIndicator = document.getElementById("scrollIndicator");
     const scrollable = document.body.scrollHeight > window.innerHeight;
     const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 20;
-  
+ 
     if (scrollable && !scrolledToBottom) {
       scrollIndicator.style.display = "block";
     } else {
       scrollIndicator.style.display = "none";
     }
   }
-  
+ 
   window.addEventListener("scroll", updateScrollIndicator);
   window.addEventListener("resize", updateScrollIndicator);
   window.addEventListener("load", updateScrollIndicator);
@@ -700,7 +701,7 @@
     if (tagElement) {
       setTimeout(() => {
         tagElement.scrollIntoView({ behavior: "smooth", block: "center" });
-  
+ 
         // Focus the input if in riddles mode
         if (currentMode === "riddles") {
           const input = tagElement.querySelector("input.guess-input");
@@ -708,7 +709,7 @@
             input.focus();
           }
         }
-  
+ 
         // Add flash animation
         tagElement.classList.add("flash-highlight");
         setTimeout(() => {
