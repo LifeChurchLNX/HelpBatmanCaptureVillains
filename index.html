@@ -477,7 +477,7 @@
             feedback.style.color = "#f1c40f";
             return;
           }
-          if (guess === data.answer.toLowerCase()) {
+          if (guess.includes(data.answer.toLowerCase())) {
             div.classList.add("found");
             feedback.textContent = "Correct! 🎉";
             feedback.style.color = "#fff";
