@@ -592,7 +592,7 @@
         return;
       }
  
-      if (userGuess === villainName.toLowerCase()) {
+      if (userGuess.includes(villainName.toLowerCase())) {
         feedback.textContent = "🎉 Correct! You unscrambled the villain!";
         feedback.style.color = "#27ae60";
         letterGuessSolved = true;
